@@ -46,25 +46,25 @@ const Header = () => {
         <nav className="hidden md:flex items-center space-x-6">
           <button 
             onClick={() => scrollToSection('home')}
-            className="text-vsgs-black hover:text-vsgs-yellow transition-colors font-medium"
+            className={`${isScrolled ? 'text-vsgs-black' : 'text-vsgs-white'} hover:text-vsgs-yellow transition-colors font-medium`}
           >
             Inicio
           </button>
           <button 
             onClick={() => scrollToSection('services')}
-            className="text-vsgs-black hover:text-vsgs-yellow transition-colors font-medium"
+            className={`${isScrolled ? 'text-vsgs-black' : 'text-vsgs-white'} hover:text-vsgs-yellow transition-colors font-medium`}
           >
             Servicios
           </button>
           <button 
             onClick={() => scrollToSection('clients')}
-            className="text-vsgs-black hover:text-vsgs-yellow transition-colors font-medium"
+            className={`${isScrolled ? 'text-vsgs-black' : 'text-vsgs-white'} hover:text-vsgs-yellow transition-colors font-medium`}
           >
             Clientes
           </button>
           <button 
             onClick={() => scrollToSection('about')}
-            className="text-vsgs-black hover:text-vsgs-yellow transition-colors font-medium"
+            className={`${isScrolled ? 'text-vsgs-black' : 'text-vsgs-white'} hover:text-vsgs-yellow transition-colors font-medium`}
           >
             Sobre Nosotros
           </button>
@@ -78,7 +78,7 @@ const Header = () => {
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-vsgs-black"
+          className={`md:hidden ${isScrolled ? 'text-vsgs-black' : 'text-vsgs-white'}`}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
