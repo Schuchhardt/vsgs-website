@@ -71,7 +71,7 @@ const ServicesSection = () => {
             <div key={index} className="service-card flex flex-col">
               <div className="flex items-center">
                 {service.icon}
-                <span className="text-3xl ml-2">{service.emoji}</span>
+                {/* <span className="text-3xl ml-2">{service.emoji}</span>  */}
               </div>
               <h3 className="text-xl font-bold mb-3 mt-2 text-vsgs-black">
                 {service.title}

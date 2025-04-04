@@ -47,7 +47,7 @@ const WhyChooseUsSection = () => {
               <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4">
                 {reason.icon}
               </div>
-              <span className="text-2xl mb-2">{reason.emoji}</span>
+              {/* <span className="text-2xl mb-2">{reason.emoji}</span> */}
               <h3 className="font-bold text-vsgs-black">{reason.title}</h3>
             </div>
           ))}

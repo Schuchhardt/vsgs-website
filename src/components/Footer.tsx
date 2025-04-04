@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <img 
-              src="/lovable-uploads/ce51183b-5388-4ab5-9edf-af095e0ffd7d.png" 
+              src="/lovable-uploads/logo_black.png" 
               alt="VSGS Logo" 
               className="h-12 mb-4" 
             />
@@ -23,7 +23,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center">
                 <Phone size={18} className="mr-2 text-vsgs-yellow" />
-                <span>+56 9 1234 5678</span>
+                <span>+56 9 9999 3084</span>
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="mr-2 text-vsgs-yellow" />
@@ -82,7 +82,7 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4">Redes Sociales</h3>
             <div className="flex space-x-4">
               <a 
-                href="https://linkedin.com" 
+                href="https://linkedin.com/company/vsgs_maquinaria" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="bg-vsgs-gray/20 hover:bg-vsgs-yellow hover:text-vsgs-black p-3 rounded-full transition-colors"

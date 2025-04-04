@@ -27,11 +27,11 @@ const HeroSection = () => {
             Tecnología y Potencia para Construcción y Minería
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-vsgs-white/90">
-            Arriendo de maquinaria pesada y movimiento de tierras con estándar industrial.
+            Arriendo de maquinaria pesada y movimiento de tierras con operadores calificados.
           </p>
           <button 
             onClick={scrollToContact}
-            className="bg-vsgs-yellow text-vsgs-black font-bold py-3 px-8 rounded-full hover:shadow-xl transition-all duration-300 animate-pulse-subtle text-lg"
+            className="bg-vsgs-yellow text-vsgs-black font-bold py-3 px-8 rounded-full hover:shadow-xl transition-all duration-800 animate-pulse-subtle text-lg"
           >
             Cotiza tu proyecto
           </button>

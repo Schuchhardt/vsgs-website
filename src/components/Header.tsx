@@ -38,7 +38,7 @@ const Header = () => {
           <img 
             src="/lovable-uploads/ce51183b-5388-4ab5-9edf-af095e0ffd7d.png" 
             alt="VSGS Logo" 
-            className="h-12 md:h-14" 
+            className="h-12 md:h-14 rounded-full mr-2" 
           />
         </div>
 

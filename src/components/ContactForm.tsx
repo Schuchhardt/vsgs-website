@@ -1,5 +1,5 @@
-
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm, ValidationError } from '@formspree/react';
 import { CheckCircle2 } from 'lucide-react';
 
 const serviceOptions = [
@@ -13,87 +13,7 @@ const serviceOptions = [
 ];
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    company: '',
-    position: '',
-    phone: '',
-    email: '',
-    service: serviceOptions[0],
-    location: '',
-    comments: ''
-  });
-
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-    
-    if (!formData.name.trim()) {
-      newErrors.name = 'El nombre es requerido';
-    }
-    
-    if (!formData.company.trim()) {
-      newErrors.company = 'La empresa es requerida';
-    }
-    
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'El teléfono es requerido';
-    } else if (!/^\d{9,}$/.test(formData.phone.replace(/\s+/g, ''))) {
-      newErrors.phone = 'Ingrese un número de teléfono válido';
-    }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = 'El email es requerido';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Ingrese un email válido';
-    }
-    
-    if (!formData.location.trim()) {
-      newErrors.location = 'La ubicación del proyecto es requerida';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (validateForm()) {
-      setIsSubmitting(true);
-      
-      // Simulate form submission
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setIsSubmitted(true);
-        
-        // Reset form after submission
-        setFormData({
-          name: '',
-          company: '',
-          position: '',
-          phone: '',
-          email: '',
-          service: serviceOptions[0],
-          location: '',
-          comments: ''
-        });
-        
-        // In a real implementation, you'd send the form data to a server here
-      }, 1500);
-    }
-  };
+  const [state, handleSubmit] = useForm("mdkewwra"); // <-- tu ID de Formspree
 
   return (
     <section id="contact" className="py-20 bg-vsgs-yellow">
@@ -108,23 +28,18 @@ const ContactForm = () => {
         </div>
 
         <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-xl p-8">
-          {isSubmitted ? (
+          {state.succeeded ? (
             <div className="text-center py-10">
               <CheckCircle2 size={64} className="text-green-500 mx-auto mb-4" />
               <h3 className="text-2xl font-bold mb-2">¡Gracias por contactarnos!</h3>
               <p className="text-lg text-vsgs-gray mb-6">
                 Te responderemos en menos de 24 horas.
               </p>
-              <button 
-                onClick={() => setIsSubmitted(false)}
-                className="btn-primary"
-              >
-                Enviar otra solicitud
-              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Nombre */}
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-vsgs-gray mb-1">
                     Nombre *
@@ -133,14 +48,14 @@ const ContactForm = () => {
                     type="text"
                     id="name"
                     name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-lg border ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300"
                     placeholder="Tu nombre"
                   />
-                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                  <ValidationError prefix="Nombre" field="name" errors={state.errors} />
                 </div>
-                
+
+                {/* Empresa */}
                 <div>
                   <label htmlFor="company" className="block text-sm font-medium text-vsgs-gray mb-1">
                     Empresa *
@@ -149,14 +64,14 @@ const ContactForm = () => {
                     type="text"
                     id="company"
                     name="company"
-                    value={formData.company}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-lg border ${errors.company ? 'border-red-500' : 'border-gray-300'}`}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300"
                     placeholder="Nombre de la empresa"
                   />
-                  {errors.company && <p className="text-red-500 text-sm mt-1">{errors.company}</p>}
+                  <ValidationError prefix="Empresa" field="company" errors={state.errors} />
                 </div>
-                
+
+                {/* Cargo */}
                 <div>
                   <label htmlFor="position" className="block text-sm font-medium text-vsgs-gray mb-1">
                     Cargo (opcional)
@@ -165,13 +80,12 @@ const ContactForm = () => {
                     type="text"
                     id="position"
                     name="position"
-                    value={formData.position}
-                    onChange={handleChange}
                     className="w-full px-4 py-3 rounded-lg border border-gray-300"
                     placeholder="Tu cargo en la empresa"
                   />
                 </div>
-                
+
+                {/* Teléfono */}
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-vsgs-gray mb-1">
                     Teléfono (WhatsApp preferido) *
@@ -180,14 +94,14 @@ const ContactForm = () => {
                     type="tel"
                     id="phone"
                     name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-lg border ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300"
                     placeholder="Tu número de teléfono"
                   />
-                  {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+                  <ValidationError prefix="Teléfono" field="phone" errors={state.errors} />
                 </div>
-                
+
+                {/* Email */}
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-vsgs-gray mb-1">
                     Email *
@@ -196,14 +110,14 @@ const ContactForm = () => {
                     type="email"
                     id="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-lg border ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300"
                     placeholder="Tu correo electrónico"
                   />
-                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                  <ValidationError prefix="Email" field="email" errors={state.errors} />
                 </div>
-                
+
+                {/* Servicio */}
                 <div>
                   <label htmlFor="service" className="block text-sm font-medium text-vsgs-gray mb-1">
                     Tipo de servicio requerido *
@@ -211,8 +125,7 @@ const ContactForm = () => {
                   <select
                     id="service"
                     name="service"
-                    value={formData.service}
-                    onChange={handleChange}
+                    required
                     className="w-full px-4 py-3 rounded-lg border border-gray-300"
                   >
                     {serviceOptions.map((option, index) => (
@@ -222,7 +135,8 @@ const ContactForm = () => {
                     ))}
                   </select>
                 </div>
-                
+
+                {/* Ubicación */}
                 <div>
                   <label htmlFor="location" className="block text-sm font-medium text-vsgs-gray mb-1">
                     Ubicación del proyecto *
@@ -231,15 +145,15 @@ const ContactForm = () => {
                     type="text"
                     id="location"
                     name="location"
-                    value={formData.location}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-lg border ${errors.location ? 'border-red-500' : 'border-gray-300'}`}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300"
                     placeholder="Ej. Santiago, Región Metropolitana"
                   />
-                  {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location}</p>}
+                  <ValidationError prefix="Ubicación" field="location" errors={state.errors} />
                 </div>
               </div>
-              
+
+              {/* Comentarios adicionales */}
               <div>
                 <label htmlFor="comments" className="block text-sm font-medium text-vsgs-gray mb-1">
                   Comentarios adicionales
@@ -247,25 +161,25 @@ const ContactForm = () => {
                 <textarea
                   id="comments"
                   name="comments"
-                  value={formData.comments}
-                  onChange={handleChange}
                   rows={4}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300"
                   placeholder="Detalles adicionales sobre tu proyecto"
                 ></textarea>
+                <ValidationError prefix="Comentarios" field="comments" errors={state.errors} />
               </div>
-              
+
+              {/* Botón */}
               <div>
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={state.submitting}
                   className={`w-full py-4 rounded-lg font-bold text-lg ${
-                    isSubmitting 
+                    state.submitting 
                       ? 'bg-gray-400 cursor-not-allowed' 
                       : 'bg-vsgs-yellow text-vsgs-black hover:shadow-lg transition-all'
                   }`}
                 >
-                  {isSubmitting ? 'Enviando...' : 'Solicitar Cotización'}
+                  {state.submitting ? 'Enviando...' : 'Solicitar Cotización'}
                 </button>
               </div>
             </form>
