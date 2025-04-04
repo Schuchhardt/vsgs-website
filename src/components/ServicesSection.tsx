@@ -6,7 +6,7 @@ import {
   Construction, 
   Mountain, 
   Hammer, 
-  Road
+  Map
 } from 'lucide-react';
 
 const serviceData = [
@@ -41,7 +41,7 @@ const serviceData = [
     description: "Demoliciones rápidas, seguras y limpias. Realizamos demoliciones menores de muros, estructuras antiguas y obras civiles, siguiendo estrictos protocolos de seguridad y minimizando impacto en el entorno."
   },
   {
-    icon: <Road size={48} className="text-vsgs-yellow mb-4" />,
+    icon: <Map size={48} className="text-vsgs-yellow mb-4" />,
     title: "Habilitación de Caminos de Alto Tráfico",
     emoji: "🛣️",
     description: "Accesos robustos para faenas industriales y mineras. Diseñamos y ejecutamos caminos de acceso resistentes y eficientes, adaptados a condiciones de alto tránsito y terrenos exigentes, mejorando la logística y operatividad de cada proyecto."
